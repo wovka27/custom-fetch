@@ -8,8 +8,9 @@ const getTodos = async () => {
         _userId: 1,
             _limit: 4,
         },
-        log: true
     })
+
+    console.log(data)
 }
 
 getTodos()

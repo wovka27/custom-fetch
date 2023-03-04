@@ -148,6 +148,7 @@ export const customFetch = async (options) => {
 
             if (!customFetch.authToken && typeof data === 'object' && ('token' in data || 'accesToken' in data)) {
                 customFetch.authToken = data?.token || data?.accessToken || '';
+                window.localStorage.setItem('x-token', customFetch.authToken)
             }
             if (_options.method === 'GET') {
                 customFetchCache.set(url, result)
