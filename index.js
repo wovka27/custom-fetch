@@ -11,3 +11,5 @@ const getTodos = async () => {
         log: true
     })
 }
+
+getTodos()

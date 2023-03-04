@@ -40,6 +40,7 @@ export const customFetch = async (options) => {
         return console.error('URL not provided!')
     }
 
+    // настройки по дефолту
     let _options = {
         method: 'GET',
         headers: {
@@ -51,6 +52,7 @@ export const customFetch = async (options) => {
         signal: customFetchController.signal
     }
 
+    // если опции есть то обьединяем с дефолтными
     if (typeof options === 'object') {
         _options = {
             ..._options,
@@ -144,6 +146,9 @@ export const customFetch = async (options) => {
         if (response.ok) {
             result = { data, error: null, info }
 
+            if (typeof data === 'object' && ('token' in data || 'accesToken' in data)) {
+                customFetch.authToken = data?.token || data?.accessToken || '';
+            }
             if (_options.method === 'GET') {
                 customFetchCache.set(url, result)
 
@@ -155,6 +160,7 @@ export const customFetch = async (options) => {
             if (_options.log) {
                 console.log(result)
             }
+
 
             return handlers?.onSuccess ? handlers.onSuccess(result) : result
         }
