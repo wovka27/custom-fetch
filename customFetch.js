@@ -146,7 +146,7 @@ export const customFetch = async (options) => {
         if (response.ok) {
             result = { data, error: null, info }
 
-            if (typeof data === 'object' && ('token' in data || 'accesToken' in data)) {
+            if (!customFetch.authToken && typeof data === 'object' && ('token' in data || 'accesToken' in data)) {
                 customFetch.authToken = data?.token || data?.accessToken || '';
             }
             if (_options.method === 'GET') {
